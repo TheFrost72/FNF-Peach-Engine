@@ -13,7 +13,6 @@
     { "name": "format", "type": "haxelib", "version": null },
     { "name": "hxp", "type": "haxelib", "version": null },
     { "name": "hxvlc", "type": "haxelib", "version": null },
-    { "name": "flixel-animate", "type": "haxelib", "version": null },
-    { "name": "fnf-modcharting-tools", "type": "haxelib", "version": null }
+    { "name": "flixel-animate", "type": "haxelib", "version": null }
   ]
 }
