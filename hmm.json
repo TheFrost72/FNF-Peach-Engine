@@ -1,0 +1,79 @@
+{
+  "dependencies": [
+    {
+      "name": "lime",
+      "type": "haxelib",
+      "version": "7.9.0"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": "9.1.0"
+    },
+    {
+      "name": "flixel",
+      "type": "haxelib",
+      "version": "5.6.1"
+    },
+    {
+      "name": "flixel-addons",
+      "type": "haxelib",
+      "version": "3.2.2"
+    },
+    {
+      "name": "flixel-ui",
+      "type": "haxelib",
+      "version": "1.1.0"
+    },
+    {
+      "name": "hxcpp",
+      "type": "haxelib",
+      "version": "6.0.13"
+    },
+    {
+      "name": "SScript",
+      "type": "haxelib",
+      "version": "1.0.0"
+    },
+    {
+      "name": "hxdiscord_rpc",
+      "type": "haxelib",
+      "version": "1.2.4"
+    },
+    {
+      "name": "hxluajit",
+      "type": "haxelib",
+      "version": "0.1.2"
+    },
+    {
+      "name": "hxgamemode",
+      "type": "haxelib",
+      "version": "1.0.0"
+    },
+    {
+      "name": "format",
+      "type": "haxelib",
+      "version": "1.1.0"
+    },
+    {
+      "name": "hxp",
+      "type": "haxelib",
+      "version": "0.5.0"
+    },
+    {
+      "name": "hxvlc",
+      "type": "haxelib",
+      "version": "2.0.1"
+    },
+    {
+      "name": "flixel-animate",
+      "type": "haxelib",
+      "version": "0.3.0"
+    },
+    {
+      "name": "fnf-modcharting-tools",
+      "type": "haxelib",
+      "version": "1.0.0"
+    }
+  ]
+}
