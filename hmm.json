@@ -62,6 +62,11 @@
       "url": "https://github.com/MAJigsaw77/hxvlc"
     },
     {
+      "name": "linc_luajit",
+      "type": "git",
+      "url": "https://github.com/superpowers04/linc_luajit"
+    },
+    {
       "name": "hxdiscord_rpc",
       "type": "git",
       "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
