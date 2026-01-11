@@ -63,7 +63,7 @@
     },
     {
       "name": "flixel-animate",
-      "type": "git",
+      "type": "haxelib",
       "version": "3.0.0"
     },
     {
