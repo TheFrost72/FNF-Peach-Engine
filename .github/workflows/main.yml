@@ -14,20 +14,17 @@ jobs:
       contents: read
 
     steps:
-      # Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: false
           fetch-depth: 0
 
-      # Setup Haxe
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v2
         with:
           haxe-version: 4.3.7
 
-      # Restore Haxe/HXCPP/Gradle cache
       - name: Restore Haxe/HXCPP/Gradle cache
         uses: actions/cache@v4
         with:
@@ -39,7 +36,6 @@ jobs:
             ~/.hxcpp/
             ~/.gradle/
 
-      # Restore project object cache
       - name: Restore project object cache
         uses: actions/cache@v4
         with:
@@ -50,24 +46,20 @@ jobs:
             export/release/android/haxe/
             export/release/android/obj/
 
-      # Setup HXCPP compile cache
       - name: Setup HXCPP compile cache
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
-      # Install and update libraries via hmm
       - name: Install Haxe libraries
         run: |
           haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
           haxelib run hmm install --quiet
 
-      # Setup Java
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 21
 
-      # Configure Android environment
       - name: Configure Android environment
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -75,23 +67,25 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
 
-      # Setup KeyStore from GitHub secret
       - name: Setup KeyStore
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
 
-      # Build Android release
       - name: Build Android release
-        run: haxelib run lime build android -final -keystore key.keystore -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -keyalias "${{ secrets.KEY_ALIAS }}" -keypass "${{ secrets.KEY_PASSWORD }}"
+        run: |
+          haxelib run lime build android \
+            -final \
+            -keystore key.keystore \
+            -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
+            -keyalias "${{ secrets.KEY_ALIAS }}" \
+            -keypass "${{ secrets.KEY_PASSWORD }}"
 
-      # Upload APK artifact
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: PeachEngine-Android
-          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+          path: export/release/android/bin/PeachEngine-release.apk
 
-      # Upload Haxe/HXCPP/Gradle cache
       - name: Save Haxe/HXCPP/Gradle cache
         uses: actions/cache@v4.2.3
         with:
@@ -101,7 +95,6 @@ jobs:
             ~/.hxcpp/
             ~/.gradle/
 
-      # Upload project object cache
       - name: Save project object cache
         uses: actions/cache@v4.2.3
         with:
