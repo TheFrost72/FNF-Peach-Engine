@@ -64,7 +64,7 @@
     {
       "name": "flixel-animate",
       "type": "git",
-      "url": "https://github.com/Dot-Stuff/flixel-animate"
+      "version": "3.0.0"
     },
     {
       "name": "hxgamemode",
