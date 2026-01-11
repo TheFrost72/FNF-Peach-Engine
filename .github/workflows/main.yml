@@ -1,108 +1,111 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Build
-
-
-# Controls when the action will run.
+name: Android Build
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main, experimental ]
-  pull_request:
-    branches: [ main, experimental ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ['main']
   workflow_dispatch:
+  workflow_call:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  buildLinux:
-    # The type of runner that the job will run on
+  build:
+    name: Android Build
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4.1.7
-
-      - uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.3.4
-      # Runs a set of commands using the runners shell
-      - name: Install Haxelib
-        run: |
-          sudo apt-get install libvlc-dev
-          sudo apt-get install libvlccore-dev
-          haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-      - name: Skip SScript setup mode
-        run: echo 'oy9:showMacroty8:loopCosti25y10:includeAllfg' >> ~/settings.cocoa
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSION
-      - name: Compile
-        run: haxelib run lime build Project.xml linux --app-version="4.0.0-${{ github.run_id}}" -D officialBuild
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: linuxBuild
-          path: 'export/release/linux/bin'
-  buildWindows:
-    runs-on: windows-latest
+    permissions:
+      contents: read
 
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4.1.7
-
-      - uses: krdlab/setup-haxe@master
+      # Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
-          haxe-version: 4.3.4
-      # Runs a set of commands using the runners shell
-      - name: Install Haxelib
+          lfs: false
+          fetch-depth: 0
+
+      # Setup Haxe
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v2
+        with:
+          haxe-version: 4.3.7
+
+      # Restore Haxe/HXCPP/Gradle cache
+      - name: Restore Haxe/HXCPP/Gradle cache
+        uses: actions/cache@v4
+        with:
+          key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          restore-keys: |
+            cache-haxe-hxcpp-gradle-${{ runner.os }}-
+          path: |
+            .haxelib/
+            ~/.hxcpp/
+            ~/.gradle/
+
+      # Restore project object cache
+      - name: Restore project object cache
+        uses: actions/cache@v4
+        with:
+          key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          restore-keys: |
+            cache-android-obj-${{ runner.os }}-
+          path: |
+            export/release/android/haxe/
+            export/release/android/obj/
+
+      # Setup HXCPP compile cache
+      - name: Setup HXCPP compile cache
+        run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
+
+      # Install and update libraries via hmm
+      - name: Install Haxe libraries
         run: |
-          haxelib setup C:/haxelib
-          haxelib install hxcpp > /dev/null --quiet
-          .\"setup/windows.bat"
-        shell: cmd
-      - name: Skip SScript setup mode
-        run: echo 'oy9:showMacroty8:loopCosti25y10:includeAllfg' >> %USERPROFILE%/settings.cocoa
-        shell: cmd
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSION
-      - name: Compile
-        run: haxelib run lime build windows --app-version="4.0.0-${{ github.run_id}}"  -D officialBuild
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v4.3.4
-        with:
-          name: windowsBuild
-          path: export/release/windows/bin
-  buildMac:
-    runs-on: macos-15
+          haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
+          haxelib run hmm install --quiet
 
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4.1.7
-
-      - uses: krdlab/setup-haxe@master
+      # Setup Java
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
-          haxe-version: 4.3.4
-      # Runs a set of commands using the runners shell
-      - name: Install Haxelib
+          distribution: temurin
+          java-version: 21
+
+      # Configure Android environment
+      - name: Configure Android environment
         run: |
-          haxelib setup ~/haxelib
-          haxelib install hxcpp > /dev/null --quiet
-          chmod +x ./setup/unix.sh
-          sh ./setup/unix.sh
-      - name: Skip SScript setup mode
-        run: echo 'oy9:showMacroty8:loopCosti25y10:includeAllfg' >> ~/settings.cocoa
-      - name: Create Version Tag
-        run: echo "${{github.run_id}}" > VERSION
-      - name: Compile
-        run: haxelib run lime build mac --app-version="4.0.0-${{ github.run_id}}"  -D officialBuild
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v4.3.4
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
+          haxelib run lime config JAVA_HOME $JAVA_HOME
+          haxelib run lime config ANDROID_SETUP true
+
+      # Setup KeyStore from GitHub secret
+      - name: Setup KeyStore
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
+
+      # Build Android release
+      - name: Build Android release
+        run: haxelib run lime build android -final -keystore key.keystore -storepass "${{ secrets.KEYSTORE_PASSWORD }}" -keyalias "${{ secrets.KEY_ALIAS }}" -keypass "${{ secrets.KEY_PASSWORD }}"
+
+      # Upload APK artifact
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: macBuild
-          path: export/release/macos/bin
+          name: PeachEngine-Android
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
+
+      # Upload Haxe/HXCPP/Gradle cache
+      - name: Save Haxe/HXCPP/Gradle cache
+        uses: actions/cache@v4.2.3
+        with:
+          key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          path: |
+            .haxelib/
+            ~/.hxcpp/
+            ~/.gradle/
+
+      # Upload project object cache
+      - name: Save project object cache
+        uses: actions/cache@v4.2.3
+        with:
+          key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          path: |
+            export/release/android/haxe/
+            export/release/android/obj/
