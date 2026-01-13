@@ -71,6 +71,13 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
 
+      - name: Rebuild essential git libs for Android
+        run: |
+          haxelib run lime rebuild flxanimate -Dandroid
+          haxelib run lime rebuild hxdiscord_rpc -Dandroid
+          haxelib run lime rebuild hxluajit -Dandroid
+          haxelib run lime rebuild linc_luajit -Dandroid
+            
       - name: Build Android release
         run: |
           haxelib run lime build android -final -Dandroid
