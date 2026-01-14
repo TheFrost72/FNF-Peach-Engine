@@ -1,5 +1,5 @@
 ## ENGINE
-![LogoIcon](docs/img/NeuroEngineIcon.png)
+![LogoIcon](docs/img/NeuroEngine.png)
 This engine is based on the Psych Engine, but is specifically designed for mobile devices, with some internal modifications and improvements.
 
 * But why did I intend to make this engine?
