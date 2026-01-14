@@ -1,27 +1,20 @@
-![PsychionalEngineLogo](docs/img/PsychEngineLogoTweak.png)
-
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
-
-## Installation:
-
-Refer to [the Build Instructions](/docs/BUILDING.md)
+This engine is based on the Psych Engine, but is specifically designed for mobile devices, with some internal modifications and improvements.
 
 ## Customization:
 
-If you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can refer to the `Project.xml` file.
+* If you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can refer to the `Project.xml` file.
 
-Inside `Project.xml`, you will find several variables to customize Psych Engine to your liking.
-
-To start you off, disabling *Video Cutscenes* should be simple, simply delete the line `"VIDEOS_ALLOWED"` or comment it out by wrapping the line in XML-like comments, like this: `<!-- YOUR_LINE_HERE -->`
-
-Same goes for *Lua Scripts*, comment out or delete the line with `LUA_ALLOWED`, this and other customization options are all available within the `Project.xml` file.
+* Inside `Project.xml`, you will find several variables to customize Neuro Engine to your liking.
 
 ## Softcoding (.lua/.hx)
 For this you can head over to [the wiki](https://shadowmario.github.io/psychengine.lua)
 
 There you can learn how to use the 212 PlayState funcions in your mod!
 
-## Credits:
+##Credits to Neuro Engine:
+* TheFrost72 - General carrier for mobile devices and among all the modifications made.
+
+## General credits to Psych Engine:
 * Shadow Mario - Main Programmer and Head of Psych Engine.
 * Riveren - Main Artist/Animator of Psych Engine.
 
@@ -112,7 +105,7 @@ There you can learn how to use the 212 PlayState funcions in your mod!
 
 ## Options menu:
 * You can change Note colors, Delay and Combo Offset, Controls and Preferences there.
- * On Preferences you can toggle Downscroll, Middlescroll, Anti-Aliasing, Framerate, Low Quality, Note Splashes, Flashing Lights, etc.
+* On Preferences you can toggle Downscroll, Middlescroll, Anti-Aliasing, Framerate, Low Quality, Note Splashes, Flashing Lights, etc.
 ![Options](docs/img/Options.png)
 
 ## Other gameplay features:
@@ -123,5 +116,11 @@ There you can learn how to use the 212 PlayState funcions in your mod!
 * You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
 * You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
 
+##ENGINE
+[LogoIcon](docs/NeuroEngineIcon.png)
 
-#### Psych Engine by ShadowMario, Friday Night Funkin' by ninjamuffin99
+But why did I intend to make this engine?
+For mobile gamers to have a more comfortable experience, the app includes new menus with buttons designed for mobile devices, as well as code from various other versions of the Psych Engine the majority in one.
+
+
+#### Original Engine by ShadowMario, Friday Night Funkin' by Ninja muffins 
