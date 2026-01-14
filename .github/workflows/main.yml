@@ -23,7 +23,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@v2
         with:
-          haxe-version: 4.3.7
+          haxe-version: 4.3.2
 
       - name: Restore Haxe/HXCPP/Gradle cache
         uses: actions/cache@v4
@@ -44,6 +44,7 @@ jobs:
           path: |
             export/release/android/haxe/
             export/release/android/obj/
+            
       - name: Setup HXCPP compile cache
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
@@ -51,6 +52,7 @@ jobs:
         run: |
           haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
           haxelib run hmm install --quiet
+          
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
