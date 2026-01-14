@@ -11,7 +11,7 @@ For this you can head over to [the wiki](https://shadowmario.github.io/psychengi
 
 There you can learn how to use the 212 PlayState funcions in your mod!
 
-##Credits to Neuro Engine:
+## Credits to Neuro Engine:
 * TheFrost72 - General carrier for mobile devices and among all the modifications made.
 
 ## General credits to Psych Engine:
