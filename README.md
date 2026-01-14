@@ -117,7 +117,7 @@ There you can learn how to use the 212 PlayState funcions in your mod!
 * You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
 
 ## ENGINE
-[LogoIcon](docs/img/NeuroEngineIcon.png)
+![LogoIcon](docs/img/NeuroEngineIcon.png)
 
 * But why did I intend to make this engine?
 
