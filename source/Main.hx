@@ -1,6 +1,6 @@
 package;
 
-#if sys
+#if desktop
 import sys.Sys;
 #end
 
@@ -76,7 +76,7 @@ class Main extends Sprite
 		#end
 
 		// Credits to MAJigsaw77 (he's the og author for this code)
-		#if sys
+		#if desktop
 		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
