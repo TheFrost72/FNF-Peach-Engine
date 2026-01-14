@@ -1,4 +1,5 @@
 name: Android Build
+
 on:
   push:
     branches: ['main']
@@ -49,16 +50,34 @@ jobs:
       - name: Setup HXCPP compile cache
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
-      - name: Install Haxe libraries
+      - name: Setup Haxelib dependencies
         run: |
-          haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
-          haxelib run hmm install --quiet
+          haxelib setup ~/haxelib
+          haxelib install lime 8.1.2 --quiet
+          haxelib install openfl 9.3.3 --quiet
+          haxelib install flixel 5.6.1 --quiet
+          haxelib install flixel-addons 3.2.2 --quiet
+          haxelib install flixel-ui 2.6.1 --quiet
+          haxelib install tjson 1.4.0 --quiet
+          haxelib install format 3.7.0 --quiet
+          haxelib install hxp 1.3.0 --quiet
+          haxelib install hxcpp 4.3.2 --quiet
+          haxelib install SScript 8.1.6 --quiet
+          haxelib install hscript-iris 1.1.3 --quiet
+
+          haxelib git hxluajit https://github.com/MAJigsaw77/hxluajit
+          haxelib git hxvlc https://github.com/MAJigsaw77/hxvlc
+          haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
+          haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc
+          haxelib git flxanimate https://github.com/MaybeMaru/flixel-animate
+          haxelib git hxgamemode https://github.com/MAJigsaw77/hxgamemode
+          haxelib git extension-androidtools https://github.com/MAJigsaw77/extension-androidtools
 
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 17
 
       - name: Configure Android environment
         run: |
@@ -71,17 +90,9 @@ jobs:
         run: |
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > key.keystore
 
-      - name: Rebuild essential git libs for Android
-        run: |
-          haxelib run lime rebuild flxanimate -Dandroid
-          haxelib run lime rebuild hxdiscord_rpc -Dandroid
-          haxelib run lime rebuild hxluajit -Dandroid
-          haxelib run lime rebuild linc_luajit -Dandroid
-            
       - name: Build Android release
         run: |
-          haxelib run lime build android -final -Dandroid
-            -final \
+          haxelib run lime build android -final -Dandroid \
             -keystore key.keystore \
             -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
             -keyalias "${{ secrets.KEY_ALIAS }}" \
