@@ -26,7 +26,7 @@ jobs:
         with:
           haxe-version: 4.3.7
 
-      - name: Restore Haxe/HXCPP/Gradle cache
+      - name: Restore Haxe / HXCPP / Gradle cache
         uses: actions/cache@v4
         with:
           key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
@@ -37,7 +37,7 @@ jobs:
             ~/.hxcpp/
             ~/.gradle/
 
-      - name: Restore project object cache
+      - name: Restore Android object cache
         uses: actions/cache@v4
         with:
           key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
@@ -53,6 +53,7 @@ jobs:
       - name: Setup Haxelib dependencies
         run: |
           haxelib setup ~/haxelib
+
           haxelib install lime 8.1.2 --quiet
           haxelib install openfl 9.3.3 --quiet
           haxelib install flixel 5.6.1 --quiet
@@ -104,8 +105,8 @@ jobs:
           name: PeachEngine-Android
           path: export/release/android/bin/PeachEngine-release.apk
 
-      - name: Save Haxe/HXCPP/Gradle cache
-        uses: actions/cache@v4.2.3
+      - name: Save Haxe / HXCPP / Gradle cache
+        uses: actions/cache@v4
         with:
           key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
           path: |
@@ -113,8 +114,8 @@ jobs:
             ~/.hxcpp/
             ~/.gradle/
 
-      - name: Save project object cache
-        uses: actions/cache@v4.2.3
+      - name: Save Android object cache
+        uses: actions/cache@v4
         with:
           key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
           path: |
