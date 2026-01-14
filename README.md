@@ -116,11 +116,11 @@ There you can learn how to use the 212 PlayState funcions in your mod!
 * You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
 * You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
 
-##ENGINE
-[LogoIcon](docs/NeuroEngineIcon.png)
+## ENGINE
+[LogoIcon](docs/img/NeuroEngineIcon.png)
 
-But why did I intend to make this engine?
-For mobile gamers to have a more comfortable experience, the app includes new menus with buttons designed for mobile devices, as well as code from various other versions of the Psych Engine the majority in one.
+* But why did I intend to make this engine?
 
+For mobile players to have a more comfortable experience, the app includes new menus with buttons designed for mobile devices, as well as code from various other versions of the Psych Engine the majority in one.
 
 #### Original Engine by ShadowMario, Friday Night Funkin' by Ninja muffins 
