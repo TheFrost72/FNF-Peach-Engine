@@ -25,16 +25,16 @@ jobs:
         with:
           haxe-version: 4.3.2
 
-      - name: Restore Haxe/HXCPP/Gradle cache
+      - name: Restore Haxe/HXCPP
         uses: actions/cache@v4
         with:
-          key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
           restore-keys: |
-            cache-haxe-hxcpp-gradle-${{ runner.os }}-
+            cache-haxe-hxcpp-${{ runner.os }}-
           path: |
             .haxelib/
             ~/.hxcpp/
-            ~/.gradle/
+            
       - name: Restore project object cache
         uses: actions/cache@v4
         with:
@@ -54,10 +54,13 @@ jobs:
           haxelib run hmm install --quiet
           
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: 11
+
+      - name: Force clean Gradle cache
+        run: rm -rf ~/.gradle
 
       - name: Configure Android environment
         run: |
@@ -80,14 +83,14 @@ jobs:
           name: NeuroEngine-Android
           path: export/release/android/bin/NeuroEngine-release.apk
 
-      - name: Save Haxe/HXCPP/Gradle cache
+      - name: Save Haxe/HXCPP
         uses: actions/cache@v4.2.3
         with:
-          key: cache-haxe-hxcpp-gradle-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
           path: |
             .haxelib/
             ~/.hxcpp/
-            ~/.gradle/
+            
       - name: Save project object cache
         uses: actions/cache@v4.2.3
         with:
