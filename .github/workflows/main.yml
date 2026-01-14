@@ -70,6 +70,9 @@ jobs:
         run: |
           haxelib run lime build android -final
 
+      - name: List Android release folder
+        run: ls -R export/release/android/bin/
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
