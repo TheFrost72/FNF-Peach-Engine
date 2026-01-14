@@ -1,7 +1,7 @@
 package;
 
 #if android
-import android.content.Context;
+Sys.setCwd(lime.system.System.applicationStorageDirectory);
 #end
 
 import debug.FPSCounter;
@@ -184,7 +184,7 @@ class Main extends Sprite
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 
-		#if DISCORD_ALLOWED
+		#if DISCORD_ALLOWED && desktop
 		DiscordClient.prepare();
 		#end
 
@@ -252,7 +252,7 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errMsg, "Error!");
-		#if DISCORD_ALLOWED
+		#if DISCORD_ALLOWED && desktop
 		DiscordClient.shutdown();
 		#end
 		Sys.exit(1);
