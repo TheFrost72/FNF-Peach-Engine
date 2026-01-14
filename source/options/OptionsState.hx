@@ -44,7 +44,7 @@ class OptionsState extends MusicBeatState
 
 	override function create()
 	{
-		#if DISCORD_ALLOWED && desktop
+		#if (DISCORD_ALLOWED && desktop)
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
@@ -82,7 +82,7 @@ class OptionsState extends MusicBeatState
 	{
 		super.closeSubState();
 		ClientPrefs.saveSettings();
-		#if DISCORD_ALLOWED && desktop
+		#if (DISCORD_ALLOWED && desktop)
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 	}
