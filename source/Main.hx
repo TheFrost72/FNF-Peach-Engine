@@ -1,7 +1,7 @@
 package;
 
 #if android
-Sys.setCwd(lime.system.System.applicationStorageDirectory);
+import android.content.Context;
 #end
 
 import debug.FPSCounter;
