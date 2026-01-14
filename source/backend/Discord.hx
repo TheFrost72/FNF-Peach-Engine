@@ -1,6 +1,6 @@
 package backend;
 
-#if DISCORD_ALLOWED && desktop
+#if (DISCORD_ALLOWED && desktop)
 import Sys.sleep;
 import sys.thread.Thread;
 import lime.app.Application;
