@@ -1,5 +1,10 @@
+## ENGINE
+![LogoIcon](docs/img/NeuroEngineIcon.png)
 This engine is based on the Psych Engine, but is specifically designed for mobile devices, with some internal modifications and improvements.
 
+* But why did I intend to make this engine?
+
+For mobile players to have a more comfortable experience, the app includes new menus with buttons designed for mobile devices, as well as code from various other versions of the Psych Engine the majority in one.
 ## Customization:
 
 * If you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can refer to the `Project.xml` file.
@@ -115,12 +120,5 @@ There you can learn how to use the 212 PlayState funcions in your mod!
 * You can reset your Score on Freeplay/Story Mode by pressing Reset button.
 * You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
 * You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
-
-## ENGINE
-![LogoIcon](docs/img/NeuroEngineIcon.png)
-
-* But why did I intend to make this engine?
-
-For mobile players to have a more comfortable experience, the app includes new menus with buttons designed for mobile devices, as well as code from various other versions of the Psych Engine the majority in one.
 
 #### Original Engine by ShadowMario, Friday Night Funkin' by Ninja muffins 
