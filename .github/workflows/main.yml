@@ -92,7 +92,7 @@ jobs:
 
       - name: Build Android release
         run: |
-          haxelib run lime build android -final -Dandroid \
+          haxelib run lime build android -final \
             -keystore key.keystore \
             -storepass "${{ secrets.KEYSTORE_PASSWORD }}" \
             -keyalias "${{ secrets.KEY_ALIAS }}" \
