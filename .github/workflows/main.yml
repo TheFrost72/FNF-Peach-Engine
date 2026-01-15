@@ -70,14 +70,11 @@ jobs:
         run: |
           haxelib run lime build android -final
 
-      - name: List Android release folder
-        run: ls -R export/release/android/bin/
-
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: NeuroEngine-Android
-          path: export/release/android/bin/NeuroEngine-release.apk
+          path: export/release/android/bin/app/build/outputs/apk/release/*.apk
 
       - name: Save Haxe/HXCPP
         uses: actions/cache@v4.2.3
