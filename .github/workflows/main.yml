@@ -65,6 +65,10 @@ jobs:
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
+
+      - name: Set Gradle memory
+        run: |
+           echo "ORG_GRADLE_JAVA_OPTS=-Xmx4g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
             
       - name: Build Android release
         run: |
