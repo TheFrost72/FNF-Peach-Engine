@@ -57,7 +57,7 @@ jobs:
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
       - name: Install and update libraries
-        run: haxelib git hmm "https://github.com/TheFrost72/hmm"
+        run: haxelib git hmm https://github.com/TheFrost72/hmm
              haxelib run hmm install
 
       - name: Configure Android environment
