@@ -88,7 +88,7 @@
       "url": "https://github.com/superpowers04/linc_luajit.git"
     },
     {
-      "name": "hxCodec",
+      "name": "FlxVideoSprite",
       "type": "git",
       "url": "https://github.com/polybiusproxy/hxCodec"
     }
