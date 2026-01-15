@@ -25,28 +25,38 @@ jobs:
         with:
           haxe-version: 4.3.2
 
-      - name: Restore Haxe/HXCPP cache
-        uses: actions/cache@v4
-        with:
-          key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
-          restore-keys: |
-            cache-haxe-hxcpp-${{ runner.os }}-
-          path: |
-            .haxelib/
-            ~/.hxcpp/
+      #- name: Restore Haxe/HXCPP cache
+        #uses: actions/cache@v4
+        #with:
+          #key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+          #restore-keys: |
+            #cache-haxe-hxcpp-${{ runner.os }}-
+          #path: |
+            #.haxelib/
+            #~/.hxcpp/
             
-      - name: Restore project object cache
-        uses: actions/cache@v4
-        with:
-          key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
-          restore-keys: |
-            cache-android-obj-${{ runner.os }}-
-          path: |
-            export/release/android/haxe/
-            export/release/android/obj/
+      #- name: Restore project object cache
+        #uses: actions/cache@v4
+        #with:
+          #key: cache-android-obj-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
+         # restore-keys: |
+            #cache-android-obj-${{ runner.os }}-
+        #path: |
+            #export/release/android/haxe/
+           # export/release/android/obj/
             
-      - name: Setup HXCPP compile cache
-        run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
+     # - name: Setup HXCPP compile cache
+    #    run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
+
+      - name: Clear GitHub Actions cache
+        run: |
+           echo "Removing Haxe/HXCPP cache..."
+           rm -rf $HOME/.haxelib/
+           rm -rf $HOME/.hxcpp/
+           echo "Removing project object cache..."
+           rm -rf export/release/android/haxe/
+           rm -rf export/release/android/obj/
+           echo "Cache cleared!"
 
       - name: Install Haxe libraries
         run: |
