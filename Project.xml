@@ -36,10 +36,10 @@
 	<define name="SHOW_LOADING_SCREEN" />
 	<define name="PSYCH_WATERMARKS"/>
 
-	<section if="officialBuild">
+	<section if="android">
 		<define name="TITLE_SCREEN_EASTER_EGG"/>
 		<define name="BASE_GAME_FILES" />
-		<define name="VIDEOS_ALLOWED" if="windows || linux || mac" unless="32bits"/>
+		<define name="VIDEOS_ALLOWED"/>
 	</section>
 
 	<!-- ____________________________ Window Settings ___________________________ -->
@@ -64,32 +64,25 @@
 
 	<!-- __________________________ Game Assets & Etc. __________________________ -->
 	
-	<define name="CRASH_HANDLER" if="desktop release" />
+	<define name="CRASH_HANDLER" if="android" />
 
 	<!-- Assets -->
 	<assets path="assets/fonts" />
-	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
-	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/embed"         exclude="*.ogg" if="web" embed="true"/>
-	<assets path="assets/embed"         exclude="*.mp3" unless="web" embed="true"/>
-	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
-	<assets path="assets/songs"         exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
+	<assets path="assets/shared"/>
+	<assets path="assets/embed"/>
+	<assets path="assets/videos"  if="VIDEOS_ALLOWED"/>
+	<assets path="assets/songs"/>
+	<assets path="assets/week_assets"   rename="assets"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
-		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
+		<assets path="assets/secrets" rename="assets/shared"/>
 	</section>
 
 	<section if="TRANSLATIONS_ALLOWED">
-		<assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/translations" rename="assets" exclude="*.mp3"  unless="web"/>
+		<assets path="assets/translations" rename="assets"/>
 	</section>
 
 	<section if="BASE_GAME_FILES">
-		<assets path="assets/base_game" rename="assets" exclude="*.ogg" if="web"/>
-		<assets path="assets/base_game" rename="assets" exclude="*.mp3"  unless="web"/>
+		<assets path="assets/base_game" rename="assets"/>
 		<haxelib name="grig.audio" if="BASE_GAME_FILES"/>
 		<haxelib name="funkin.vis" if="BASE_GAME_FILES"/>
 	</section>
@@ -150,7 +143,7 @@
 
 	<assets path='art/icons/iconOG.png' rename='icon.png'/>
 	<certificate path="neuroengine.keystore" password="NeuroPass72!" alias="neuroengine" alias-password="NeuroPass72!" if="android" unless="debug" />
-	<define name="TOUCH_CONTROLS" if="mobile || web" />
+	<define name="TOUCH_CONTROLS" if="mobile"/>
 	
 	<!-- minimal icon set for Android -->
 	<icon path="art/icons/icon16.png" size='16'/>
