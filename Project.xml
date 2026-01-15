@@ -72,17 +72,17 @@
 	<assets path="assets/embed"/>
 	<assets path="assets/videos"  if="VIDEOS_ALLOWED"/>
 	<assets path="assets/songs"/>
-	<assets path="assets/week_assets"   rename="assets"/>
+	<assets path="assets/week_assets"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets/shared"/>
 	</section>
 
 	<section if="TRANSLATIONS_ALLOWED">
-		<assets path="assets/translations" rename="assets"/>
+		<assets path="assets/translations"/>
 	</section>
 
 	<section if="BASE_GAME_FILES">
-		<assets path="assets/base_game" rename="assets"/>
+		<assets path="assets/base_game"/>
 	</section>
 
 	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
