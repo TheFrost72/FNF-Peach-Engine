@@ -32,8 +32,8 @@
     },
     {
       "name": "hxcpp",
-      "type": "git",
-      "url": "https://github.com/HaxeFoundation/hxcpp"
+      "type": "haxelib",
+      "version": "4.3.2"
     },
     {
       "name": "hxvlc",
