@@ -1,151 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<!-- _________________________ Application Settings _________________________ -->
+    <!-- Android-only Neuro Engine -->
 
-	<app title="Friday Night Funkin': Neuro Engine"
-		 file="Neuro Engine"
-		 packageName="com.thefrost72.neuroengine"
-		 package="com.thefrost72.neuroengine"
-		 main="Main"
-		 version="1.0.4"
-		 versionCode="1"
-		 company="TheFrost72" />
+    <app title="Friday Night Funkin': Neuro Engine"
+         file="Neuro Engine"
+         packageName="com.thefrost72.neuroengine"
+         package="com.thefrost72.neuroengine"
+         main="Main"
+         version="1.0.4"
+         versionCode="1"
+         company="TheFrost72" />
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
+    <set name="APP_ID" value="0x0100f6c013bbc000" />
 
-	<!-- NOTE TO SELF: DISABLE THIS IF ISSUES ARE FOUND -->
-	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/>
+    <!-- Haxe / engine options -->
+    <haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/>
+    <app preloader="flixel.system.FlxPreloader" />
+    <set name="SWF_VERSION" value="11.8" />
 
-	<app preloader="flixel.system.FlxPreloader" />
+    <!-- Android-specific defines -->
+    <section if="android">
+        <define name="TITLE_SCREEN_EASTER_EGG"/>
+        <define name="BASE_GAME_FILES" />
+        <define name="VIDEOS_ALLOWED"/>
+        <define name="MODS_ALLOWED"/>
+        <define name="HSCRIPT_ALLOWED"/>
+        <define name="LUA_ALLOWED"/>
+        <define name="ACHIEVEMENTS_ALLOWED"/>
+        <define name="TRANSLATIONS_ALLOWED"/>
+        <define name="IRIS_DEBUG"/>
+        <define name="MULTITHREADED_LOADING"/>
+        <define name="SHOW_LOADING_SCREEN"/>
+        <define name="PSYCH_WATERMARKS"/>
+    </section>
 
-	<set name="SWF_VERSION" value="11.8" />
-	
-	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
+    <!-- Window settings for mobile -->
+    <window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false" allow-high-dpi="true" fps="60" />
 
-	<!-- enable on mobile as well if you plan to use them -->
-	<define name="MODS_ALLOWED" />
-	<define name="HSCRIPT_ALLOWED" />
-	<define name="LUA_ALLOWED" />
-	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="DISCORD_ALLOWED" if="desktop"/>
-	<define name="TRANSLATIONS_ALLOWED" />
-	<define name="IRIS_DEBUG"/>
+    <!-- Build directories -->
+    <set name="BUILD_DIR" value="export/release" unless="debug" />
+    <set name="BUILD_DIR" value="export/debug" if="debug" />
 
-	<define name="MULTITHREADED_LOADING" />
-	<define name="SHOW_LOADING_SCREEN" />
-	<define name="PSYCH_WATERMARKS"/>
+    <classpath name="source" />
 
-	<section if="android">
-		<define name="TITLE_SCREEN_EASTER_EGG"/>
-		<define name="BASE_GAME_FILES" />
-		<define name="VIDEOS_ALLOWED"/>
-	</section>
+    <!-- Crash handler for Android -->
+    <define name="CRASH_HANDLER" if="android" />
 
-	<!-- ____________________________ Window Settings ___________________________ -->
+    <!-- Assets -->
+    <assets path="assets/fonts" />
+    <assets path="assets/shared"/>
+    <assets path="assets/embed" embed="true"/>
+    <assets path="assets/videos" if="VIDEOS_ALLOWED"/>
+    <assets path="assets/songs"/>
+    <assets path="assets/week_assets"/>
+    <assets path="assets/translations"/>
+    <assets path="assets/base_game"/>
+    <section if="TITLE_SCREEN_EASTER_EGG">
+        <assets path="assets/secrets" rename="assets/secrets"/>
+    </section>
 
-	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false" allow-high-dpi="true" />
+    <!-- Mods -->
+    <section if="MODS_ALLOWED">
+        <assets path="example_mods" rename="mods" embed="false" type="template"/>
+        <assets path="list.txt" rename="modsList.txt"/>
+    </section>
 
-	<window if="html5" resizable="true" />
+    <assets path="art/readme.txt" rename="do NOT readme.txt"/>
 
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
+    <!-- Libraries needed for Android -->
+    <haxelib name="flixel" version="5.6.1"/>
+    <haxelib name="flixel-addons" version="3.2.2"/>
+    <haxelib name="tjson" version="1.4.0"/>
+    <haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+    <haxelib name="hscript-iris" if="HSCRIPT_ALLOWED" version="1.1.3"/>
+    <haxelib name="hxvlc" if="VIDEOS_ALLOWED"/>
+    <haxelib name="flxanimate"/>
 
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false" allow-high-dpi="true"/>
+    <!-- Disable unnecessary things -->
+    <haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER"/>
+    <haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER"/>
+    <haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER"/>
+    <haxedef name="FLX_NO_FOCUS_LOST_SCREEN"/>
+    <haxedef name="FLX_NO_DEBUG" unless="debug"/>
+    <haxedef name="NAPE_RELEASE_BUILD" unless="debug"/>
+    <haxedef name="no-deprecation-warnings"/>
+    <haxedef name="message.reporting" value="pretty"/>
 
-	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
+    <!-- Android certificate -->
+    <certificate path="neuroengine.keystore" password="NeuroPass72!" alias="neuroengine" alias-password="NeuroPass72!" if="android" unless="debug"/>
 
-	<!-- _____________________________ Path Settings ____________________________ -->
+    <!-- Touch controls -->
+    <define name="TOUCH_CONTROLS" if="mobile"/>
 
-	<set name="BUILD_DIR" value="export/debug" if="debug" />
-	<set name="BUILD_DIR" value="export/release" unless="debug" />
-	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
-
-	<classpath name="source" />
-
-	<!-- __________________________ Game Assets & Etc. __________________________ -->
-	
-	<define name="CRASH_HANDLER" if="android" />
-
-	<!-- Assets -->
-	<assets path="assets/fonts" />
-	<assets path="assets/shared"/>
-	<assets path="assets/embed"/>
-	<assets path="assets/videos"  if="VIDEOS_ALLOWED"/>
-	<assets path="assets/songs"/>
-	<assets path="assets/week_assets"/>
-	<section if="TITLE_SCREEN_EASTER_EGG">
-		<assets path="assets/secrets" rename="assets/shared"/>
-	</section>
-
-	<section if="TRANSLATIONS_ALLOWED">
-		<assets path="assets/translations"/>
-	</section>
-
-	<section if="BASE_GAME_FILES">
-		<assets path="assets/base_game"/>
-	</section>
-
-	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
-
-	<section if="MODS_ALLOWED">
-		<assets path='example_mods' rename='mods' embed='false' type='template' unless="mac"/>
-		<assets path='example_mods' rename='mods' embed='false' if="mac"/>
-		<assets path='list.txt' rename='modsList.txt' />
-	</section>
-	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-
-	<!-- OpenAL config -->
-	<section if="desktop">
-		<assets path="alsoft.txt" rename="plugins/alsoft.ini" type="text" if="windows"/>
-		<assets path="alsoft.txt" rename="plugins/alsoft.conf" type="text" unless="windows"/>
-	</section>
-
-	<!-- _______________________________ Libraries ______________________________ -->
-
-	<haxelib name="flixel" version="5.6.1"/>
-	<haxelib name="flixel-addons" version="3.2.2"/>
-	<haxelib name="tjson" version="1.4.0"/>
-
-	<!--Psych stuff needed-->
-	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
-	<haxelib name="hscript-iris" if="HSCRIPT_ALLOWED" version="1.1.3"/>
-	<haxelib name="hxvlc" version="2.0.1"/>
-	<haxelib name="hxdiscord_rpc" version="1.2.4" if="desktop"/>
-	<haxelib name="flxanimate"/>
-
-	<!-- Disable Discord IO Thread -->
-	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
-	<haxedef name="NO_PRECOMPILED_HEADERS" if="linux" />
-
-	<haxelib name="hxcpp-debug-server" if="debug"/>
-	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
-	<haxedef name="HXVLC_NO_SHARE_DIRECTORY" if="VIDEOS_ALLOWED" />
-	<define name="x86_BUILD" if="32bits" />
-	
-	<!-- ______________________________ Haxedefines _____________________________ -->
-
-	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
-	<haxedef name="FLX_NO_DEBUG" unless="debug" />
-	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER" />
-	<haxedef name='no-deprecation-warnings' />
-	<haxedef name="message.reporting" value="pretty" />
-	<haxeflag name="--macro" value="allowPackage('flash')" />
-	<haxeflag name="--macro" value="include('my.pack')" />
-	<haxedef name="hscriptPos" if="HSCRIPT_ALLOWED" />
-
-	<!-- _________________________________ Custom _______________________________ -->
-
-	<assets path='art/icons/iconOG.png' rename='icon.png'/>
-	<certificate path="neuroengine.keystore" password="NeuroPass72!" alias="neuroengine" alias-password="NeuroPass72!" if="android" unless="debug" />
-	<define name="TOUCH_CONTROLS" if="mobile"/>
-	
-	<!-- minimal icon set for Android -->
-	<icon path="art/icons/icon16.png" size='16'/>
-	<icon path="art/icons/icon32.png" size='32'/>
-	<icon path="art/icons/icon64.png" size='64'/>
-	<icon path="art/icons/iconOG.png" />
+    <!-- Icons -->
+    <icon path="art/icons/icon16.png" size="16"/>
+    <icon path="art/icons/icon32.png" size="32"/>
+    <icon path="art/icons/icon64.png" size="64"/>
+    <icon path="art/icons/iconOG.png"/>
 </project>
