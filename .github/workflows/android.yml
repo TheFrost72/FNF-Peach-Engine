@@ -1,4 +1,5 @@
 name: Android Build
+
 on:
   push:
     branches: ['main']
@@ -24,6 +25,17 @@ jobs:
         uses: krdlab/setup-haxe@v2
         with:
           haxe-version: 4.3.7
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Setup Android SDK and NDK (FIXED)
+        uses: android-actions/setup-android@v3
+        with:
+          ndk-version: 21.4.7075529
 
       - name: Restore Others Caches
         uses: actions/cache@v4
@@ -52,15 +64,6 @@ jobs:
       - name: Install and update libraries
         run: haxe -cp commandline -D analyzer-optimize --run Main setup -s
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: zulu
-          java-version: 17
-
-      - name: Setup Android SDK & NDK
-        uses: android-actions/setup-android@v3
-
       - name: Configure Android environment
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
@@ -69,7 +72,7 @@ jobs:
           haxelib run lime config ANDROID_SETUP true
 
       - name: Build Android
-        run: haxelib run lime build android -final
+        run: haxelib run lime build android -final -Dandroid-no-splits
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
