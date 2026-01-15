@@ -34,7 +34,7 @@ jobs:
           path: |
             .haxelib/
             ~/.hxcpp/
-            
+
       - name: Restore project object cache
         uses: actions/cache@v4
         with:
@@ -44,7 +44,7 @@ jobs:
           path: |
             export/release/android/haxe/
             export/release/android/obj/
-            
+
       - name: Setup HXCPP compile cache
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
@@ -52,7 +52,7 @@ jobs:
         run: |
           haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
           haxelib run hmm install --quiet
-          
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -68,11 +68,20 @@ jobs:
 
       - name: Set Gradle memory
         run: |
-           echo "ORG_GRADLE_JAVA_OPTS=-Xmx4g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
-            
+          echo "ORG_GRADLE_JAVA_OPTS=-Xmx6g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
+          echo "GRADLE_OPTS=-Xmx6g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
+
+      - name: Ensure gradle.properties has high heap
+        run: |
+          mkdir -p export/release/android/app
+          cat > export/release/android/app/gradle.properties << 'EOF'
+          org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8
+          org.gradle.parallel=false
+          EOF
+
       - name: Build Android release
         run: |
-          haxelib run lime build android -final
+          haxelib run lime build android -final -Dandroid-no-splits
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -87,7 +96,7 @@ jobs:
           path: |
             .haxelib/
             ~/.hxcpp/
-            
+
       - name: Save project object cache
         uses: actions/cache@v4.2.3
         with:
