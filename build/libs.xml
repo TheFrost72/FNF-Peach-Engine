@@ -16,7 +16,7 @@
 		<lib name="tjson" version="1.4.0" />
 
 		<!-- C++ / Native -->
-		<git name="hxcpp" url="https://github.com/TheFrost72/hxcpp" />
+		<git name="hxcpp" />
 		<lib name="hxvlc" version="2.0.1" />
 
 		<!-- Discord / Debug -->
