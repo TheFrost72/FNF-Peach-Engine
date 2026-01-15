@@ -38,7 +38,8 @@ class Setup {
 			"S" => "silent-progress",
 			"silent" => "silent-progress",
 			"f" => "fast",
-			"F" => "fast"
+			"F" => "fast",
+			"reinstall" => "reinstall"
 		]);
 		var CHECK_VSTUDIO = !args.existsOption("no-vscheck");
 		var REINSTALL_ALL = args.existsOption("reinstall");
@@ -55,8 +56,7 @@ class Setup {
 			FileSystem.createDirectory('.haxelib');
 		}
 
-		var useOfficial = args.existsOption("official"); // check for --official flag
-        var libFile = useOfficial ? "./building/libsofc.xml" : "./building/libs.xml";
+		var libFile = "./build/libs.xml";
 		if(args.existsOption("lib")) {
 			libFile = args.getOption("lib");
 			if(libFile == null) {
