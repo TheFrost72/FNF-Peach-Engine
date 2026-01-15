@@ -25,7 +25,7 @@ jobs:
         with:
           haxe-version: 4.3.2
 
-      - name: Restore Haxe/HXCPP
+      - name: Restore Haxe/HXCPP cache
         uses: actions/cache@v4
         with:
           key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
@@ -34,7 +34,7 @@ jobs:
           path: |
             .haxelib/
             ~/.hxcpp/
-
+            
       - name: Restore project object cache
         uses: actions/cache@v4
         with:
@@ -44,7 +44,7 @@ jobs:
           path: |
             export/release/android/haxe/
             export/release/android/obj/
-
+            
       - name: Setup HXCPP compile cache
         run: echo "HXCPP_COMPILE_CACHE=$HOME/.hxcpp" >> $GITHUB_ENV
 
@@ -52,7 +52,7 @@ jobs:
         run: |
           haxelib git hmm https://github.com/FNF-SE/hmm --skip-dependencies --quiet
           haxelib run hmm install --quiet
-
+          
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -66,19 +66,19 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
 
-      - name: Set Gradle memory
+      - name: Set maximum Gradle memory
         run: |
-          echo "ORG_GRADLE_JAVA_OPTS=-Xmx6g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
-          echo "GRADLE_OPTS=-Xmx6g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
+          echo "ORG_GRADLE_JAVA_OPTS=-Xmx8g -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError" >> $GITHUB_ENV
+          echo "GRADLE_OPTS=-Xmx8g -Dfile.encoding=UTF-8" >> $GITHUB_ENV
 
-      - name: Ensure gradle.properties has high heap
+      - name: Ensure gradle.properties uses maximum heap
         run: |
           mkdir -p export/release/android/app
-          cat > export/release/android/app/gradle.properties << 'EOF'
-          org.gradle.jvmargs=-Xmx6g -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8
+          cat > export/release/android/app/gradle.properties <<'EOF'
+          org.gradle.jvmargs=-Xmx8g -XX:MaxMetaspaceSize=1024m -Dfile.encoding=UTF-8 -XX:+HeapDumpOnOutOfMemoryError
           org.gradle.parallel=false
           EOF
-
+          
       - name: Build Android release
         run: |
           haxelib run lime build android -final -Dandroid-no-splits
@@ -89,14 +89,14 @@ jobs:
           name: NeuroEngine-Android
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
 
-      - name: Save Haxe/HXCPP
+      - name: Save Haxe/HXCPP cache
         uses: actions/cache@v4.2.3
         with:
           key: cache-haxe-hxcpp-${{ runner.os }}-${{ hashFiles('**/haxelib.json') }}
           path: |
             .haxelib/
             ~/.hxcpp/
-
+            
       - name: Save project object cache
         uses: actions/cache@v4.2.3
         with:
