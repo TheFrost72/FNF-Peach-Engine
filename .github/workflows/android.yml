@@ -58,8 +58,8 @@ jobs:
 
       - name: Install and update libraries
         run: |
-           haxelib git hmm https://github.com/TheFrost72/hmm.git
-           haxelib run hmm install
+           haxelib git hmm https://github.com/TheFrost72/hmm.git --skip-dependencies --quiet
+           haxelib run hmm install --quiet
 
       - name: Setup Android SDK & NDK
         uses: android-actions/setup-android@v3
