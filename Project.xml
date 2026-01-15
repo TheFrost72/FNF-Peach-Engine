@@ -161,4 +161,10 @@
 	<icon path="art/icons/icon32.png" size='32'/>
 	<icon path="art/icons/icon64.png" size='64'/>
 	<icon path="art/icons/iconOG.png" />
+
+	<android>
+    <ndk-build>
+        <arg value="APP_STL=c++_shared"/>
+    </ndk-build>
+</android>
 </project>
