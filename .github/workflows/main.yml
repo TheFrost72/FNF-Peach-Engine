@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          lfs: false
+          lfs: true
           fetch-depth: 0
 
       - name: Setup Haxe
