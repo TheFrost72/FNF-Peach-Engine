@@ -84,6 +84,16 @@
       "name": "flxanimate",
       "type": "git",
       "url": "https://github.com/Dot-Stuff/flxanimate"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "url": "https://github.com/FunkinCrew/funkVis"
+    },
+    {
+      "name": "grig.audio",
+      "type": "git",
+      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
     }
   ]
 }
