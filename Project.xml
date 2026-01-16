@@ -40,21 +40,17 @@
 	<!-- Assets -->
 	<assets path="assets/fonts" />
 	<assets path="assets/shared" if="mobile"/>
-	<assets path="assets/embed" if="mobile" embed="true"/>
-	<assets path="assets/week_assets" rename="assets" if="mobile"/>
-
-	<!-- base_game assets -> rename to assets -->
-	<assets path="assets/base_game/songs" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/shared" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/videos" if="VIDEOS_ALLOWED" rename="assets"/>
-	<assets path="assets/base_game/week1" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week2" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week3" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week4" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week5" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week6" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/week7" if="mobile" rename="assets"/>
-	<assets path="assets/base_game/weekend1" if="mobile" rename="assets"/>
+	<assets path="assets/songs" if="mobile" exclude="*.mp3" />
+	<assets path="assets/base_game/shared" if="mobile"/>
+	<assets path="assets/base_game/videos" if="VIDEOS_ALLOWED"/>
+	<assets path="assets/base_game/week1" if="mobile"/>
+	<assets path="assets/base_game/week2" if="mobile"/>
+	<assets path="assets/base_game/week3" if="mobile"/>
+	<assets path="assets/base_game/week4" if="mobile"/>
+	<assets path="assets/base_game/week5" if="mobile"/>
+	<assets path="assets/base_game/week6" if="mobile"/>
+	<assets path="assets/base_game/week7" if="mobile"/>
+	<assets path="assets/base_game/weekend1" if="mobile"/>
 
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets/shared" if="mobile"/>
