@@ -1,11 +1,6 @@
 package;
 
-#if desktop
-import sys.Sys;
-#end
-
 import debug.FPSCounter;
-
 import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
@@ -21,14 +16,6 @@ import states.TitleState;
 #if HSCRIPT_ALLOWED
 import crowplexus.iris.Iris;
 import psychlua.HScript.HScriptInfos;
-#end
-
-#if (linux || mac)
-import lime.graphics.Image;
-#end
-
-#if desktop
-import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.
 #end
 
 //crash handler stuff
@@ -70,17 +57,10 @@ class Main extends Sprite
 	public function new()
 	{
 		super();
+        #if android
+        StorageUtil.requestPermissions();
+        #end
 
-		#if (cpp && windows)
-		backend.Native.fixScaling();
-		#end
-
-		// Credits to MAJigsaw77 (he's the og author for this code)
-		#if desktop
-		Sys.setCwd(Path.addTrailingSlash(Context.getExternalFilesDir()));
-		#elseif ios
-		Sys.setCwd(lime.system.System.applicationStorageDirectory);
-		#end
 		#if VIDEOS_ALLOWED
 		hxvlc.util.Handle.init(#if (hxvlc >= "1.8.0")  ['--no-lua'] #end);
 		#end
@@ -117,6 +97,7 @@ class Main extends Sprite
 			var newPos:HScriptInfos = cast pos;
 			if (newPos.showLine == null) newPos.showLine = true;
 			var msgInfo:String = (newPos.funcName != null ? '(${newPos.funcName}) - ' : '')  + '${newPos.fileName}:';
+	
 			#if LUA_ALLOWED
 			if (newPos.isLua == true) {
 				msgInfo += 'HScript:';
@@ -166,26 +147,11 @@ class Main extends Sprite
 		}
 		#end
 
-		#if (linux || mac) // fix the app icon not showing up on the Linux Panel / Mac Dock
-		var icon = Image.fromFile("icon.png");
-		Lib.current.stage.window.setIcon(icon);
-		#end
-
-		#if html5
-		FlxG.autoPause = false;
-		FlxG.mouse.visible = false;
-		#end
-
 		FlxG.fixedTimestep = false;
-		FlxG.game.focusLostFramerate = 60;
-		FlxG.keys.preventDefaultKeys = [TAB];
 		
-		#if CRASH_HANDLER
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
-		#end
-
-		#if (DISCORD_ALLOWED && desktop)
-		DiscordClient.prepare();
+		#if android
+		FlxG.game.focusLostFramerate = #if mobile 30 #else 60 #end;
+		FlxG.android.preventDefaultKeys = [BACK];
 		#end
 
 		// shader coords fix
@@ -211,7 +177,7 @@ class Main extends Sprite
 
 	// Code was entirely made by sqirra-rng for their fnf engine named "Izzy Engine", big props to them!!!
 	// very cool person for real they don't get enough credit for their work
-	#if CRASH_HANDLER
+	#if (CRASH_HANDLER && !mobile)
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
 		var errMsg:String = "";
@@ -252,9 +218,6 @@ class Main extends Sprite
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
 		Application.current.window.alert(errMsg, "Error!");
-		#if (DISCORD_ALLOWED && desktop)
-		DiscordClient.shutdown();
-		#end
 		Sys.exit(1);
 	}
 	#end
