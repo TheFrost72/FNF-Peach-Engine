@@ -93,16 +93,13 @@
 	<haxedef name="hscriptPos" if="HSCRIPT_ALLOWED" />
 
 	<!-- _________________________________ Custom _______________________________ -->
-	<assets path='art/icons/iconOG.png' rename='icon.png'/>
 	<certificate path="neuroengine.keystore" password="NeuroPass72!" alias="neuroengine" alias-password="NeuroPass72!" if="android"/>
-	<icon path="art/icons/icon48.png" size='48'/>
-	<icon path="art/icons/icon72.png" size='72'/>
-	<icon path="art/icons/icon96.png" size='96'/>
-	<icon path="art/icons/icon144.png" size='144'/>
-	<icon path="art/icons/iconOG.png" />
-	<android>
-	    <ndk-build>
-	        <arg value="APP_STL=c++_shared"/>
-	    </ndk-build>
-	</android>
+<android>
+    <icon path="art/icons/ic_foreground.png" foreground="true"/>
+    <icon path="art/icons/ic_background.png" background="true"/>
+
+    <ndk-build>
+        <arg value="APP_STL=c++_shared"/>
+    </ndk-build>
+</android>
 </project>
