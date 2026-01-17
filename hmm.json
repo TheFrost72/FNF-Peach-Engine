@@ -76,6 +76,11 @@
       "url": "https://github.com/MAJigsaw77/hxluajit"
     },
     {
+      "name": "extension-androidtools",
+      "type": "git",
+      "url": "https://github.com/LimeExtensions/extension-androidtools.git"
+    },
+    {
       "name": "linc_luajit",
       "type": "git",
       "url": "https://github.com/superpowers04/linc_luajit.git"
