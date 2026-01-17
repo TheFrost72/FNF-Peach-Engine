@@ -9,7 +9,7 @@ import llua.Lua;
 import backend.Achievements;
 #end
 
-// TOUCH_CONTROLS
+// Mobile Controls
 import mobile.objects.MobileControls;
 import mobile.objects.IMobileControls;
 import mobile.objects.Hitbox;
@@ -18,8 +18,6 @@ import mobile.objects.TouchButton;
 import mobile.input.MobileInputID;
 import mobile.backend.MobileData;
 import mobile.input.MobileInputManager;
-import mobile.backend.TouchUtil;
-
 // Android
 #if android
 import android.content.Context as AndroidContext;
@@ -30,7 +28,7 @@ import android.Settings as AndroidSettings;
 import android.Tools as AndroidTools;
 import android.os.Build.VERSION as AndroidVersion;
 import android.os.Build.VERSION_CODES as AndroidVersionCode;
-import android.os.BatteryManager as AndroidBatteryManager;
+//import android.os.BatteryManager as AndroidBatteryManager;
 #end
 
 #if sys
