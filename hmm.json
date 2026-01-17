@@ -77,8 +77,8 @@
     },
     {
       "name": "extension-androidtools",
-      "type": "git",
-      "url": "https://github.com/LimeExtensions/extension-androidtools.git"
+      "type": "haxelib",
+      "version": "null"
     },
     {
       "name": "linc_luajit",
